@@ -1,0 +1,87 @@
+Last login: Wed Dec 25 12:28:48 on ttys000
+
+The default interactive shell is now zsh.
+To update your account to use zsh, please run `chsh -s /bin/zsh`.
+For more details, please visit https://support.apple.com/kb/HT208050.
+Air-Lena:~ lena$ ssh f3ec6e46-4a96-4f48-84ef-9702635871d6@serverhub.praktikum-services.ru -p 4554
+morty@77ddee5c4934:~$ psql -U morty -d scooter_rent
+Password for user morty: 
+psql (11.18 (Debian 11.18-0+deb10u1))
+Type "help" for help.
+
+scooter_rent=# SELECT "Couriers"."login", COUNT(*)
+scooter_rent-# FROM "Orders"
+scooter_rent-# JOIN "Couriers" ON "Orders"."courierId" = "Couriers"."id"
+scooter_rent-# WHERE "Orders"."inDelivery" = true
+scooter_rent-# GROUP BY "Couriers"."login";
+ login | count 
+-------+-------
+ Jony  |    12
+ Mark  |     6
+ Nike  |     2
+ Lena  |     4
+ Kate  |    10
+(5 rows)
+
+scooter_rent=# SELECT "track",
+scooter_rent-# CASE
+scooter_rent-# WHEN "finished" = true THEN 2
+scooter_rent-# WHEN "cancelled" = true THEN -1
+scooter_rent-# WHEN "inDelivery" = true THEN 1
+scooter_rent-# ELSE 0
+scooter_rent-# END as status
+scooter_rent-# FROM "Orders";
+
+ track  | status 
+--------+--------
+ 777001 |      0
+  47251 |      1
+  47251 |      1
+ 220938 |      1
+ 220938 |      1
+ 283301 |      1
+ 283301 |      1
+ 240932 |      1
+ 240932 |      1
+ 348154 |      1
+ 348154 |      1
+ 831944 |      1
+ 831944 |      1
+ 603872 |      1
+ 603872 |      1
+ 945751 |      1
+ 945751 |      1
+ 525984 |      1
+ 525984 |      1
+ 879702 |      1
+ 879702 |      1
+ 261534 |      1
+ 261534 |      1
+ 296965 |      2
+ 841290 |      1
+ 841290 |      1
+ 742582 |      1
+ 742582 |      1
+ 821441 |      1
+ 821441 |      1
+ 296965 |      2
+ 922983 |      2
+ 231409 |      1
+ 231409 |      2
+ 922983 |      2
+ 501831 |     -1
+(36 rows)
+
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+(END)
